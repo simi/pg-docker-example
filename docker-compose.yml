@@ -1,0 +1,14 @@
+version: '3'
+services:
+  db:
+    image: postgres:15.3-bullseye
+    volumes:
+      - ./custom-postgresql.conf:/config/postgresql.conf
+      - ./data:/data
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+      - PGDATA=/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    command: postgres -c config_file='/config/postgresql.conf'
